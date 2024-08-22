@@ -6,22 +6,24 @@ import {
 
 export const contactData = [
   {
-    title: "Excelent Services",
+    title: "VISION",
     icon: BriefcaseIcon,
     description:
-      "Some quick example text to build on the card title and make up the bulk of the card's content.",
+      "At Safe Hands, our vision is to revolutionize child safety with innovative technology, ensuring secure, seamless, and trusted interactions for every family and institution we serve. We aspire to be the leading guardian of safety and peace of mind, empowering communities through unparalleled security solutions.",
   },
   {
-    title: "Grow Your Market",
+    title: "MISSION",
     icon: ChartBarIcon,
     description:
-      "Some quick example text to build on the card title and make up the bulk of the card's content.",
+      "At Safe Hands, our mission is to provide cutting-edge technology solutions that ensure the safety and accountability of children in educational and religious environments. We are committed to enhancing security measures through reliable systems and fostering trust between families, schools, and communities.",
   },
   {
-    title: "Launch Time",
+    title: "CORE VALUES",
     icon: PlayIcon,
-    description:
-      "Some quick example text to build on the card title and make up the bulk of the card's content.",
+    description: "Safety First, "+
+    "Secure Systems and "+
+    " System Integrity ",
+      
   },
 ];
 

@@ -5,24 +5,24 @@ import {
 export const featuresData = [
   {
     color: "gray",
-    title: "Awarded Agency",
+    title: "Trusted Child Safety Solutions",
     icon: ChatBubbleBottomCenterTextIcon,
     description:
-      "Divide details about your product or agency work into parts. A paragraph describing a feature will be enough.",
+      "Safe Hands offers unparalleled child safety with our robust security framework, ensuring that every drop-off and pick-up is safeguarded by state-of-the-art biometric authentication and vigilant monitoring.",
   },
   {
     color: "gray",
-    title: "Free Revisions",
+    title: "Secure and Efficient Data Management System",
     icon: ChatBubbleBottomCenterTextIcon,
     description:
-      "Keep you user engaged by providing meaningful information. Remember that by this time, the user is curious.",
+      "Our platform guarantees the utmost protection of sensitive information through advanced encryption and seamless cloud-based data management, facilitating both security and operational efficiency for institutions.",
   },
   {
     color: "gray",
-    title: "Verified Company",
+    title: "Innovative Attendance System",
     icon: ChatBubbleBottomCenterTextIcon,
     description:
-      "Write a few lines about each one. A paragraph describing a feature will be enough. Keep you user engaged!",
+      "Embrace the future of attendance tracking with Safe Hands' cutting-edge technology, providing real-time, accurate monitoring that enhances oversight and peace of mind for schools and religious centers.",
   },
 ];
 

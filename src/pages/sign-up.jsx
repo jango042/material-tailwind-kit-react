@@ -3,39 +3,252 @@ import {
   Checkbox,
   Button,
   Typography,
+  Select,
+  Option,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
 
 
 export function SignUp() {
+
+  const [post, setPost] = useState({
+      name: '',
+      rcNumber: '',
+      phone: '',
+      email: '',
+      address: ''
+  })
+  const [error, setError] = useState({});
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [file, setFile] = useState(null);
+  const [isLoading, setIsLoading] = useState(false)
+  const [checked, setChecked] = useState(false)
+  const [selectedValue, setSelectedValue] = useState('')
+
+
+  //validate form input
+  const validate =  (values) => {
+    const errors = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    if(!values.name) {
+      errors.name = "company name is required"
+    }
+    if(!values.rcNumber) {
+      errors.rcNumber = "rc number is required"
+    }
+    if(!values.phone) {
+      errors.phone = "phone number is required"
+    } 
+    if(!values.email) {
+      errors.email = "Email is required"
+    }
+    if(!values.clientType) {
+      errors.clientType = "Choose client type"
+    }
+    if(!values.address) {
+      errors.address = "Enter address"
+    }
+    return errors;
+  }
+
+
+  //handle controlled input fields
+  const handleInput = (event) => {
+      event.preventDefault();
+      setPost({...post, [event.target.name]: event.target.value})
+  }
+
+  
+
+  //handle file change
+  const handleFileChange = (e) => {
+    if(e.target.files && e.target.files[0]) {
+      setFile(e.target.files[0]);
+    }
+  }
+
+
+  //handle form submit
+  const handleSubmit = async(event)  => {
+    event.preventDefault()
+    setIsLoading(true)
+    const errors = validate(post);
+    try {
+      let logo = "";
+      if(file) {
+        const formData = new FormData();
+        formData.append("file", file);
+        const uploadResponse = await axios.post('https://safe-hands-8aabe3ab7b5b.herokuapp.com/file/', formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        })
+        //this is the upload url
+        logo = uploadResponse.data.data
+
+        setError(errors)
+        setIsSubmitted(true)
+      }
+      const response = await axios.post('https://safe-hands-8aabe3ab7b5b.herokuapp.com/api/clients', {...post, clientType: selectedValue, logo}, {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      setIsLoading(false);
+      if(response.status !== 200) {
+        throw new Error("Network error was not ok")
+      }
+    } catch (error) {
+      console.error("Error submitting form", error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   return (
     <section className="m-8 flex">
-            <div className="w-2/5 h-full hidden lg:block">
+      <div className="w-2/5 h-full hidden lg:block">
         <img
-          src="/img/pattern.png"
+          src="/img/Fingerprint-cuate-black.png"
           className="h-full w-full object-cover rounded-3xl"
         />
       </div>
       <div className="w-full lg:w-3/5 flex flex-col items-center justify-center">
         <div className="text-center">
           <Typography variant="h2" className="font-bold mb-4">Join Us Today</Typography>
-          <Typography variant="paragraph" color="blue-gray" className="text-lg font-normal">Enter your email and password to register.</Typography>
+          <Typography variant="paragraph" color="blue-gray" className="text-lg font-normal">Enter your company details to register.</Typography>
         </div>
-        <form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2">
+        <form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2" >
           <div className="mb-1 flex flex-col gap-6">
-            <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
-              Your email
+            <div className="flex flex-col gap-6">
+            <Typography variant="small" color="blue-gray" className="-mb-3 font-medium" >
+              Company Name
             </Typography>
+            <div>
             <Input
               size="lg"
-              placeholder="name@mail.com"
+              placeholder="company name"
+              onChange={handleInput}
+              name="name"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
             />
+             {error.name && (<span className="text-sm text-red-500">{error.name}</span>)}
+             </div>
+            </div>
+
+            <div className="flex flex-col gap-6">
+            <Typography variant="small" color="blue-gray" className="-mb-3 font-medium" >
+              Address
+            </Typography>
+            <div>
+            <Input
+              size="lg"
+              placeholder="Address"
+              onChange={handleInput}
+              name="address"
+              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+            />
+             {error.address && (<span className="text-sm text-red-500">{error.address}</span>)}
+             </div>
+            </div>
+            
+           
+            
+            <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
+              Rc Number
+            </Typography>
+            <div>
+            <Input
+              size="lg"
+              placeholder="Rc Number"
+              onChange={handleInput}
+              name="rcNumber"
+              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+            />
+             {error.rcNumber && (<span className="text-sm text-red-500">{error.rcNumber}</span>)}
+            </div>
+            
+            <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
+              Phone Number
+            </Typography>
+            <div>
+            <Input
+              size="lg"
+              placeholder="Phone Number"
+              onChange={handleInput}
+              name="phone"
+              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+            />
+             {error.phone && (<span className="text-sm text-red-500">{error.phone}</span>)}
+            </div>
+            
+            <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
+              Upload Logo
+            </Typography>
+            <Input
+              size="lg"
+              type="file"
+              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+              onChange={handleFileChange}
+            />
+            <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
+              Company email
+            </Typography>
+            <div>
+            <Input
+              size="lg"
+              placeholder="name@mail.com"
+              onChange={handleInput}
+              name="email"
+              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+            />
+             {error.email && (<span className="text-sm text-red-500">{error.email}</span>)}
+            </div>
+
+            <div className="flex flex-col gap-4">
+          <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">Select Institution</Typography>
+
+          <div className="w-full">
+              <Select
+              onChange={(val) => {setSelectedValue(val)}}
+              value={post.clientType}
+              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+            >
+            <Option className="uppercase" value="CHURCH">
+              Church
+            </Option>
+            <Option className="uppercase" value="SCHOOL">
+              School
+            </Option>
+          </Select>
+          
+            </div>
           </div>
+            
+          </div>
+          
           <Checkbox
+          onClick={() => setChecked(!checked)}
             label={
               <Typography
                 variant="small"
@@ -53,11 +266,11 @@ export function SignUp() {
             }
             containerProps={{ className: "-ml-2.5" }}
           />
-          <Button className="mt-6" fullWidth>
-            Register Now
+          <Button disabled={!checked} className="mt-6" fullWidth onClick={handleSubmit}>
+            {isLoading ? "Loading..." : "Register Now"}
           </Button>
 
-          <div className="space-y-4 mt-8">
+          {/* <div className="space-y-4 mt-8">
             <Button size="lg" color="white" className="flex items-center gap-2 justify-center shadow-md" fullWidth>
               <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clipPath="url(#clip0_1156_824)">
@@ -78,7 +291,7 @@ export function SignUp() {
               <img src="/img/twitter-logo.svg" height={24} width={24} alt="" />
               <span>Sign in With Twitter</span>
             </Button>
-          </div>
+          </div> */}
           <Typography variant="paragraph" className="text-center text-blue-gray-500 font-medium mt-4">
             Already have an account?
             <Link to="/sign-in" className="text-gray-900 ml-1">Sign in</Link>

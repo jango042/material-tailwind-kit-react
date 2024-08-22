@@ -19,7 +19,7 @@ export function Home() {
   return (
     <>
       <div className="relative flex h-screen content-center items-center justify-center pt-16 pb-32">
-        <div className="absolute top-0 h-full w-full bg-[url('/img/background-3.png')] bg-cover bg-center" />
+        <div className="absolute top-0 h-full w-full bg-[url('/img/10178405.jpg')] bg-cover bg-center" />
         <div className="absolute top-0 h-full w-full bg-black/60 bg-cover bg-center" />
         <div className="max-w-8xl container relative mx-auto">
           <div className="flex flex-wrap items-center">
@@ -29,12 +29,10 @@ export function Home() {
                 color="white"
                 className="mb-6 font-black"
               >
-                Your story starts with us.
+                Safeguarding the Journey of Every Child.
               </Typography>
               <Typography variant="lead" color="white" className="opacity-80">
-                This is a simple example of a Landing Page you can build using
-                Material Tailwind. It features multiple components based on the
-                Tailwind CSS and Material Design by Google.
+              Experience peace of mind with our state-of-the-art security and attendance systems, where technology meets trust to ensure seamless, secure and efficient child management. At SafeHands, we protect what matters most.
               </Typography>
             </div>
           </div>
@@ -65,17 +63,18 @@ export function Home() {
                 className="mb-3 font-bold"
                 color="blue-gray"
               >
-                Working with us is a pleasure
+                Rationale' For SafeHands?
               </Typography>
               <Typography className="mb-8 font-normal text-blue-gray-500">
-                Don't let your uses guess by attaching tooltips and popoves to
-                any element. Just make sure you enable them first via
-                JavaScript.
+              In Nigeria, rising insecurity and alarming kidnapping cases have heightened concerns 
+              among parents and institutions, jeopardizing the safety of children in schools and religious centers. 
+              Safe Hands addresses these critical issues with advanced technology solutions.
                 <br />
                 <br />
-                The kit comes with three pre-built pages to help you get started
-                faster. You can change the text and images and you're good to
-                go. Just make sure you enable them first via JavaScript.
+                Our integrated fingerprint devices and Android tablets provide secure and efficient 
+                monitoring of child drop-offs and pick-ups, ensuring real-time tracking and accountability. 
+                By safeguarding children and enhancing transparency, Safe Hands empowers communities to protect 
+                their most vulnerable members with confidence and peace of mind.
               </Typography>
               <Button variant="filled">read more</Button>
             </div>
@@ -84,23 +83,36 @@ export function Home() {
                 <CardHeader floated={false} className="relative h-56">
                   <img
                     alt="Card Image"
-                    src="/img/teamwork.png"
+                    src="/img/Fingerprint-pana-black.png"
                     className="h-full w-full"
                   />
                 </CardHeader>
                 <CardBody>
-                  <Typography variant="small" color="blue-gray" className="font-normal">Enterprise</Typography>
+                  {/* <Typography variant="small" color="blue-gray" className="font-normal">Enterprise</Typography> */}
                   <Typography
                     variant="h5"
                     color="blue-gray"
                     className="mb-3 mt-2 font-bold"
                   >
-                    Top Notch Services
+                    Services Offered by Safe Hands
                   </Typography>
                   <Typography className="font-normal text-blue-gray-500">
-                    The Arctic Ocean freezes every winter and much of the
-                    sea-ice then thaws every summer, and that process will
-                    continue whatever happens.
+                    Biometric Attendance Systems
+                  </Typography>
+                  <Typography className="font-normal text-blue-gray-500">
+                    Secure Check-In/Check-Out Processes
+                  </Typography>
+                  <Typography className="font-normal text-blue-gray-500">
+                    Comprehensive Data Management
+                  </Typography>
+                  <Typography className="font-normal text-blue-gray-500">
+                    Reporting and Analytics
+                  </Typography>
+                  <Typography className="font-normal text-blue-gray-500">
+                    Training and Support Services
+                  </Typography>
+                  <Typography className="font-normal text-blue-gray-500">
+                    Customizable Access Control
                   </Typography>
                 </CardBody>
               </Card>
@@ -138,10 +150,12 @@ export function Home() {
       </section>
       <section className="relative bg-white py-24 px-4">
         <div className="container mx-auto">
-          <PageTitle section="Co-Working" heading="Build something">
-            Put the potentially record low maximum sea ice extent tihs year down
-            to low ice. According to the National Oceanic and Atmospheric
-            Administration, Ted, Scambos.
+          <PageTitle section="" heading="COMPANY ETHOS">
+          At Safe Hands, we merge cutting-edge technology with unwavering dedication to child safety. 
+          Our sophisticated fingerprint authentication and Android tablet solutions ensure secure, 
+          seamless drop-off and pick-up processes. We uphold the highest standards of data integrity, 
+          safeguarding the trust placed in us by parents and institutions. Your child's safety is our paramount priority, 
+          ensuring peace of mind every day.
           </PageTitle>
           <div className="mx-auto mt-20 mb-48 grid max-w-5xl grid-cols-1 gap-16 md:grid-cols-2 lg:grid-cols-3">
             {contactData.map(({ title, icon, description }) => (

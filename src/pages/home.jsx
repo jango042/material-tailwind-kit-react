@@ -14,8 +14,54 @@ import { FingerPrintIcon, UsersIcon } from "@heroicons/react/24/solid";
 import { PageTitle, Footer } from "@/widgets/layout";
 import { FeatureCard, TeamCard } from "@/widgets/cards";
 import { featuresData, teamData, contactData } from "@/data";
+import axios from "axios";
+import { useState } from "react";
 
 export function Home() {
+
+  const [post, setPost] = useState({
+      fullName: '',
+      email: '',
+      message: ''
+  })
+  const [error, setError] = useState({});
+  const [isLoading, setIsLoading] = useState(false)
+  const [checked, setChecked] = useState(false)
+
+  //handle controlled input fields
+  const handleInput = (event) => {
+      event.preventDefault();
+      setPost({...post, [event.target.name]: event.target.value})
+  }
+
+  //handle form submit
+  const handleSubmit = async(event)  => {
+    event.preventDefault()
+    setIsLoading(true)
+    // const errors = validate(post);
+    try {
+      console.log("are we hearing...")
+      const response = axios.post('https://safe-hands-8aabe3ab7b5b.herokuapp.com/api/contact-us', {...post}, {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      setIsLoading(false);
+      setPost({
+      fullName: '',
+      email: '',
+      message: ''
+  })
+      if(response.status !== 200) {
+        throw new Error("Network error was not ok")
+      }
+    } catch (error) {
+      console.error("Error submitting form", error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   return (
     <>
       <div className="relative flex h-screen content-center items-center justify-center pt-16 pb-32">
@@ -184,11 +230,12 @@ export function Home() {
           </PageTitle>
           <form className="mx-auto w-full mt-12 lg:w-5/12">
             <div className="mb-8 flex gap-8">
-              <Input variant="outlined" size="lg" label="Full Name" />
-              <Input variant="outlined" size="lg" label="Email Address" />
+              <Input variant="outlined" size="lg" name="fullName" label="Full Name" onChange={handleInput} />
+              <Input variant="outlined" size="lg" name="email" label="Email Address" onChange={handleInput} />
             </div>
-            <Textarea variant="outlined" size="lg" label="Message" rows={8} />
+            <Textarea variant="outlined" name="message"   size="lg" label="Message" rows={8} />
             <Checkbox
+            onClick={() => setChecked(!checked)}
               label={
                 <Typography
                   variant="small"
@@ -197,7 +244,6 @@ export function Home() {
                 >
                   I agree the
                   <a
-                    href="#"
                     className="font-medium transition-colors hover:text-gray-900"
                   >
                     &nbsp;Terms and Conditions
@@ -206,8 +252,8 @@ export function Home() {
               }
               containerProps={{ className: "-ml-2.5" }}
             />
-            <Button variant="gradient" size="lg" className="mt-8" fullWidth>
-              Send Message
+            <Button variant="gradient" size="lg" className="mt-8" disabled={!checked} onClick={handleSubmit} fullWidth>
+              {isLoading ? "Loading..." : "Send Message"}
             </Button>
           </form>
         </div>

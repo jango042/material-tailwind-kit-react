@@ -21,6 +21,7 @@ export function Home() {
 
   const [post, setPost] = useState({
       fullName: '',
+      phoneNumber: '',
       email: '',
       message: ''
   })
@@ -49,6 +50,7 @@ export function Home() {
       setIsLoading(false);
       setPost({
       fullName: '',
+      phoneNumber: '',
       email: '',
       message: ''
   })
@@ -232,6 +234,7 @@ export function Home() {
             <div className="mb-8 flex gap-8">
               <Input variant="outlined" size="lg" name="fullName" label="Full Name" onChange={handleInput} />
               <Input variant="outlined" size="lg" name="email" label="Email Address" onChange={handleInput} />
+              <Input variant="outlined" size="lg" name="phoneNumber" label="Email Address" onChange={handleInput} />
             </div>
             <Textarea variant="outlined" name="message"   size="lg" label="Message" rows={8} />
             <Checkbox

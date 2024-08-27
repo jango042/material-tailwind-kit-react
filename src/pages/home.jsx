@@ -29,6 +29,8 @@ export function Home() {
   const [isLoading, setIsLoading] = useState(false)
   const [checked, setChecked] = useState(false)
 
+  const {fullName, phoneNumber, email, message} = post
+
   //handle controlled input fields
   const handleInput = (event) => {
       event.preventDefault();
@@ -48,12 +50,13 @@ export function Home() {
         }
       })
       setIsLoading(false);
-      setPost({
+       setPost({
       fullName: '',
       phoneNumber: '',
       email: '',
       message: ''
   })
+      
       if(response.status !== 200) {
         throw new Error("Network error was not ok")
       }
@@ -62,6 +65,7 @@ export function Home() {
     } finally {
       setIsLoading(false)
     }
+   
   }
 
   return (
@@ -124,7 +128,7 @@ export function Home() {
                 By safeguarding children and enhancing transparency, Safe Hands empowers communities to protect 
                 their most vulnerable members with confidence and peace of mind.
               </Typography>
-              <Button variant="filled">read more</Button>
+              {/* <Button variant="filled">read more</Button> */}
             </div>
             <div className="mx-auto mt-24 flex w-full justify-center px-4 md:w-4/12 lg:mt-0">
               <Card className="shadow-lg border shadow-gray-500/10 rounded-lg">
@@ -206,7 +210,7 @@ export function Home() {
           ensuring peace of mind every day.
           </PageTitle>
           <div className="mx-auto mt-20 mb-48 grid max-w-5xl grid-cols-1 gap-16 md:grid-cols-2 lg:grid-cols-3">
-            {contactData.map(({ title, icon, description }) => (
+            {contactData.map(({ title, icon, description, description1, description2 }) => (
               <Card
                 key={title}
                 color="transparent"
@@ -221,22 +225,32 @@ export function Home() {
                 <Typography variant="h5" color="blue-gray" className="mb-2">
                   {title}
                 </Typography>
-                <Typography className="font-normal text-blue-gray-500">
+                <Typography className="font-normal text-blue-gray-500 tracking-[-1.3px] leading-[30px] text-justify" >
                   {description}
                 </Typography>
+                <Typography className="font-normal text-blue-gray-500 text-justify tracking-[-1.3px] leading-[30px]">
+                  {description1 && description1}
+                </Typography>
+                <Typography className="font-normal text-blue-gray-500 text-justify tracking-[-1.3px] leading-[30px]">
+                  {description2 && description2}
+                </Typography>
               </Card>
+
+    //           text-align: justify;
+    // letter-spacing: -1.3px;
+    // line-height: 30px
             ))}
           </div>
           <PageTitle section="Contact Us" heading="Want to work with us?">
             Complete this form and we will get back to you in 24 hours.
           </PageTitle>
-          <form className="mx-auto w-full mt-12 lg:w-5/12">
-            <div className="mb-8 flex gap-8">
-              <Input variant="outlined" size="lg" name="fullName" label="Full Name" onChange={handleInput} />
-              <Input variant="outlined" size="lg" name="email" label="Email Address" onChange={handleInput} />
-              <Input variant="outlined" size="lg" name="phoneNumber" label="Phone Number" onChange={handleInput} />
+          <form className="mx-auto w-full mt-12 lg:w-7/12">
+            <div className="mb-8 flex gap-8 flex-wrap">
+              <Input variant="outlined" size="lg" name="fullName" value={fullName} label="Full Name" onChange={handleInput} />
+              <Input variant="outlined" size="lg" name="email" value={email} label="Email Address" onChange={handleInput} />
+              <Input variant="outlined" size="lg" name="phoneNumber" value={phoneNumber} label="Phone Number" onChange={handleInput} />
             </div>
-            <Textarea variant="outlined" name="message"   size="lg" label="Message" rows={8} />
+            <Textarea variant="outlined" name="message" value={message}   size="lg" label="Message" rows={8} cols={12} className="w-full" onChange={handleInput} />
             <Checkbox
             onClick={() => setChecked(!checked)}
               label={
@@ -255,7 +269,7 @@ export function Home() {
               }
               containerProps={{ className: "-ml-2.5" }}
             />
-            <Button variant="gradient" size="lg" className="mt-8" disabled={!checked} onClick={handleSubmit} fullWidth>
+            <Button variant="gradient" size="lg" className="mt-8" disabled={!checked || isLoading} onClick={handleSubmit} fullWidth>
               {isLoading ? "Loading..." : "Send Message"}
             </Button>
           </form>

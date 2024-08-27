@@ -20,9 +20,9 @@ export const contactData = [
   {
     title: "CORE VALUES",
     icon: PlayIcon,
-    description: "Safety First, "+
-    "Secure Systems and "+
-    " System Integrity ",
+    description: "Safety First, ",
+    description1: "Secure Systems and",
+    description2:  " System Integrity",
       
   },
 ];

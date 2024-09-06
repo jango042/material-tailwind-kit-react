@@ -3,8 +3,60 @@ import {
   MapIcon, PhoneIcon, EnvelopeIcon
 } from "@heroicons/react/24/solid";
 import { Footer } from "@/widgets/layout";
+import axios from "axios";
+import { useState } from "react";
 
 export function ContactUs() {
+const [post, setPost] = useState({
+      fullName: '',
+      phoneNumber: '',
+      email: '',
+      message: ''
+  })
+  const [error, setError] = useState({});
+  const [isLoading, setIsLoading] = useState(false)
+  const [checked, setChecked] = useState(false)
+
+
+  const {fullName, phoneNumber, email, message} = post
+
+  //handle controlled input fields
+  const handleInput = (event) => {
+      event.preventDefault();
+      setPost({...post, [event.target.name]: event.target.value})
+  }
+
+  //handle form submit
+  const handleSubmit = async(event)  => {
+    event.preventDefault()
+    setIsLoading(true)
+    // const errors = validate(post);
+    try {
+      console.log("are we hearing...")
+      const response = axios.post('https://safe-hands-8aabe3ab7b5b.herokuapp.com/api/contact-us', {...post}, {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      setIsLoading(false);
+       setPost({
+      fullName: '',
+      phoneNumber: '',
+      email: '',
+      message: ''
+  })
+      
+      if(response.status !== 200) {
+        throw new Error("Network error was not ok")
+      }
+    } catch (error) {
+      console.error("Error submitting form", error)
+    } finally {
+      setIsLoading(false)
+    }
+   
+  }
+
   return (
     <>
       <section className="relative block h-[50vh] bg-gray-200">
@@ -56,19 +108,21 @@ export function ContactUs() {
                 <Typography variant="h3" className="mb-4 font-bold" color="blue-gray">Contact Form</Typography>
                 <form>
                   <div className="mb-4">
-                    <Input type="text" size="lg" label="Full Name" />
+                    <Input type="text" name="fullName" size="lg" label="Full Name" value={fullName} onChange={handleInput} />
                   </div>
                   <div className="mb-4">
-                    <Input type="email" size="lg" label="Email Address" />
+                    <Input type="email" name="email" value={email} size="lg" onChange={handleInput} label="Email Address" />
                   </div>
                   <div className="mb-4">
-                    <Input type="text" size="lg" label="Phone Number" />
+                    <Input type="text" size="lg" name="phoneNumber" value={phoneNumber} label="Phone Number" onChange={handleInput} />
                   </div>
                   <div className="mb-4">
-                    <Textarea size="lg" label="Message" />
+                    <Textarea size="lg" name="message" onChange={handleInput} value={message} label="Message" />
                   </div>
-                  <Button size="lg" ripple="light" className="w-full">Submit</Button>
-                </form>
+                  <Button variant="gradient" size="lg" className="mt-8"  onClick={handleSubmit} fullWidth>
+                    {isLoading ? "Loading..." : "Send Message"}
+                  </Button>                
+              </form>
               </CardBody>
             </Card>
           </div>

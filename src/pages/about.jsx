@@ -271,21 +271,17 @@ By using our services, you acknowledge and agree to the collection and use of da
           </div>
         </Carousel>
       </section>
-      <section className="relative py-8 px-[20%]">
+      <section className="relative py-8 px-[10%]">
         <Typography variant="h1" className="text-center mb-8 text-blue-gray-500">SafeHands Partners</Typography>
         <div className="flex flex-wrap justify-center items-center gap-8">
-          <div className="sm:w-5/12 lg:w-2/12 p-8">
-            <img src="/img/okaytech_logo.jpeg" alt="Partner Logo 1" className="w-12 h-12 object-contain" />
+          <div className="sm:w-6/12 md:w-4/12 lg:w-3/12 xl:w-2/12 p-8">
+            <img 
+              src="/img/okaytech_logo.jpeg" 
+              alt="Partner Logo 1" 
+              className="w-40 h-40 sm:w-56 sm:h-56 lg:w-72 lg:h-72 object-contain" 
+            />
           </div>
-          {/* <div className="w-full sm:w-5/12 lg:w-2/12 p-4">
-            <img src="/img/amazon-png-logo.png" alt="Partner Logo 2" className="w-full h-auto object-contain" />
-          </div>
-          <div className="sm:w-5/12 lg:w-2/12 p-4">
-            <img src="/img/Logonetflix.png" alt="Partner Logo 3" className="w-16 h-16 object-contain" />
-          </div>
-          <div className="sm:w-5/12 lg:w-2/12 p-4">
-            <img src="/img/Prime_logo.png" alt="Partner Logo 4" className="w-12 h-12 object-contain" />
-          </div> */}
+          {/* You can add more images here following the same structure */}
         </div>
       </section>
 
